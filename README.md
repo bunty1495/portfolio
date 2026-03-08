@@ -4,6 +4,7 @@
 
 I build scalable distributed systems, high-performance backend platforms, and data-driven products across fintech, e-commerce, and enterprise software.
 
+[![Portfolio](https://img.shields.io/badge/Portfolio-bunty1495.github.io/portfolio-6366f1?style=flat&logo=github&logoColor=white)](https://bunty1495.github.io/portfolio)
 [![LinkedIn](https://img.shields.io/badge/LinkedIn-kumar--abhishek-0077B5?style=flat&logo=linkedin&logoColor=white)](https://linkedin.com/in/kumar-abhishek)
 [![Email](https://img.shields.io/badge/Email-kr.abhi2413@gmail.com-D14836?style=flat&logo=gmail&logoColor=white)](mailto:kr.abhi2413@gmail.com)
 
@@ -91,6 +92,7 @@ Contributed to Walmart's distributed order lifecycle management platform handlin
 
 ## 📫 Get in Touch
 
+- 🌐 [bunty1495.github.io/portfolio](https://bunty1495.github.io/portfolio)
 - 📧 [kr.abhi2413@gmail.com](mailto:kr.abhi2413@gmail.com)
 - 💼 [linkedin.com/in/kumar-abhishek](https://linkedin.com/in/kumar-abhishek)
 - 📞 (469) 922-9108
