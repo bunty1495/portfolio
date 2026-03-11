@@ -1,13 +1,18 @@
-.edu-grid {
+/* ── Bento grid: 3 columns ── */
+.edu-bento {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 24px;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
 }
 
+/* ── Glassmorphism card ── */
 .edu-card {
-  background: var(--bg2);
-  border: 1px solid var(--border);
-  border-radius: 16px;
+  background: var(--glass-bg);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--glass-shadow);
+  border-radius: 20px;
   padding: 32px;
   display: flex;
   align-items: flex-start;
@@ -16,26 +21,43 @@
 }
 
 .edu-card:hover {
-  border-color: var(--accent);
+  border-color: rgba(99, 102, 241, 0.35);
   transform: translateY(-2px);
 }
 
+/* Featured card (IIT KGP) gets a subtle accent gradient tint */
+.edu-card.featured {
+  background: linear-gradient(135deg, var(--glass-bg) 60%, rgba(99, 102, 241, 0.07));
+  border-color: rgba(99, 102, 241, 0.2);
+}
+
+/* ── Badge ── */
 .edu-badge {
-  min-width: 64px;
-  height: 64px;
+  min-width: 68px;
+  height: 68px;
   background: linear-gradient(135deg, var(--accent), var(--accent2));
-  border-radius: 12px;
+  border-radius: 14px;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 12px;
+  font-size: 11px;
   font-weight: 800;
+  font-family: var(--mono);
   color: white;
   letter-spacing: 0.5px;
   text-align: center;
-  line-height: 1.2;
+  line-height: 1.3;
+  flex-shrink: 0;
+  box-shadow: 0 4px 16px rgba(99, 102, 241, 0.35);
 }
 
+.edu-card.featured .edu-badge {
+  min-width: 80px;
+  height: 80px;
+  font-size: 13px;
+}
+
+/* ── Info ── */
 .edu-info {
   display: flex;
   flex-direction: column;
@@ -49,6 +71,10 @@
   line-height: 1.3;
 }
 
+.edu-card.featured .edu-school {
+  font-size: 19px;
+}
+
 .edu-degree {
   font-size: 14px;
   color: var(--accent2);
@@ -56,13 +82,20 @@
 }
 
 .edu-period {
-  font-size: 13px;
+  font-family: var(--mono);
+  font-size: 11px;
   color: var(--text3);
   margin-top: 4px;
 }
 
-@media (max-width: 640px) {
-  .edu-grid {
+/* ── Responsive ── */
+@media (max-width: 700px) {
+  .edu-bento {
     grid-template-columns: 1fr;
+  }
+
+  .edu-card {
+    grid-column: span 1 !important;
+    padding: 24px;
   }
 }

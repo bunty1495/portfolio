@@ -8,6 +8,7 @@ const jobs = [
     role: 'Vice President, Controllers',
     period: 'May 2024 – Present',
     tag: 'Fintech',
+    bentoSpan: 2,
     skills: ['Java', 'Python', 'SQL', 'Microservices', 'Distributed Systems', 'REST APIs',
              'Fintech', 'Regulatory Reporting', 'CI/CD', 'Monitoring & Alerting', 'Data Pipelines'],
     highlights: [
@@ -16,10 +17,27 @@ const jobs = [
     ],
   },
   {
+    company: 'Microsoft',
+    role: 'Software Developer, Microsoft 365',
+    period: 'Nov 2017 – Jul 2021',
+    tag: 'Enterprise',
+    bentoSpan: 1,
+    caseStudyId: 'ms-migration',
+    skills: ['Java', 'JavaScript', 'TypeScript', 'React', 'Microservices', 'Distributed Systems',
+             'REST APIs', 'JMS', 'Enterprise SaaS', 'CI/CD', 'Monitoring & Alerting',
+             'Scalable Architecture', 'Cloud Infrastructure'],
+    highlights: [
+      'Built microservices for seamless M365 + Yammer platform integration',
+      'Migrated 300,000 Yammer native guests to M365 guests with full feature parity',
+      'Optimized M365 → Yammer sync pipeline: SLA from 1 day → under 5 minutes',
+    ],
+  },
+  {
     company: 'TikTok',
     role: 'Software Developer, E-Commerce & Ads',
     period: 'Jan 2023 – Apr 2024',
     tag: 'E-Commerce',
+    bentoSpan: 2,
     skills: ['Java', 'Python', 'TypeScript', 'SQL', 'React', 'Microservices', 'Distributed Systems',
              'RPC', 'REST APIs', 'Apache Hive', 'PostgreSQL', 'ML/Ads Systems', 'CVR Modeling',
              'Data Pipelines', 'E-Commerce', 'Ads Technology', 'Monitoring & Alerting', 'Scalable Architecture'],
@@ -34,28 +52,11 @@ const jobs = [
     ],
   },
   {
-    company: 'Microsoft',
-    role: 'Software Developer, Microsoft 365',
-    period: 'Nov 2017 – Jul 2021',
-    tag: 'Enterprise',
-    caseStudyId: 'ms-migration',
-    skills: ['Java', 'JavaScript', 'TypeScript', 'React', 'Microservices', 'Distributed Systems',
-             'REST APIs', 'JMS', 'Enterprise SaaS', 'CI/CD', 'Monitoring & Alerting',
-             'Scalable Architecture', 'Cloud Infrastructure'],
-    highlights: [
-      'Built microservices for seamless M365 + Yammer platform integration',
-      'Developed distributed synchronization system for group members across Yammer and M365',
-      'Migrated 300,000 Yammer native guests to M365 guests with full feature parity',
-      'Optimized M365 → Yammer sync pipeline: SLA from 1 day → under 5 minutes',
-      'Reduced M365 group creation time from 5 seconds to under 1 second',
-      'Developed Public Folder module on React-based Outlook web application with integrated monitoring',
-    ],
-  },
-  {
     company: 'Walmart',
     role: 'Software Developer, GIF',
     period: 'Aug 2016 – Oct 2017',
     tag: 'Retail',
+    bentoSpan: 1,
     skills: ['Java', 'Distributed Systems', 'JMS', 'REST APIs', 'Scalable Architecture', 'Microservices', 'SQL'],
     highlights: [
       'Contributed to Global Integrated Fulfillment (GIF) — distributed, scalable order lifecycle management across Walmart stores',
@@ -72,38 +73,39 @@ export default function Experience({ activeSkill }) {
       <p className="section-label">Experience</p>
       <h2 className="section-title">Where I've Worked</h2>
       <div className="section-divider" />
-      <div className="timeline">
+      <div className="bento-grid">
         {jobs.map((job, i) => {
           const isHighlighted = activeSkill && job.skills.includes(activeSkill)
           const isDimmed = activeSkill && !job.skills.includes(activeSkill)
           return (
-            <div key={i} className="timeline-item">
-              <div className={`timeline-dot${isHighlighted ? ' highlighted' : ''}`} />
-              <div className={`job-card${isHighlighted ? ' highlighted' : ''}${isDimmed ? ' dimmed' : ''}`}>
-                <div className="job-header">
-                  <div>
-                    <h3 className="job-company">{job.company}</h3>
-                    <p className="job-role">{job.role}</p>
-                  </div>
-                  <div className="job-meta">
-                    <span className="job-tag">{job.tag}</span>
-                    <span className="job-period">{job.period}</span>
-                  </div>
+            <div
+              key={i}
+              className={`bento-card${isHighlighted ? ' highlighted' : ''}${isDimmed ? ' dimmed' : ''}`}
+              style={{ gridColumn: `span ${job.bentoSpan}` }}
+            >
+              <div className="bento-header">
+                <div className="bento-company-block">
+                  <h3 className="job-company">{job.company}</h3>
+                  <p className="job-role">{job.role}</p>
                 </div>
-                <ul className="job-highlights">
-                  {job.highlights.map((h, j) => (
-                    <li key={j}>{h}</li>
-                  ))}
-                </ul>
-                {job.caseStudyId && (
-                  <button
-                    className="view-logic-btn"
-                    onClick={() => setActiveStudy(job.caseStudyId)}
-                  >
-                    View Logic ↗
-                  </button>
-                )}
+                <div className="bento-meta">
+                  <span className="job-tag">{job.tag}</span>
+                  <span className="job-period">{job.period}</span>
+                </div>
               </div>
+              <ul className="job-highlights">
+                {job.highlights.map((h, j) => (
+                  <li key={j}>{h}</li>
+                ))}
+              </ul>
+              {job.caseStudyId && (
+                <button
+                  className="view-logic-btn"
+                  onClick={() => setActiveStudy(job.caseStudyId)}
+                >
+                  View Logic ↗
+                </button>
+              )}
             </div>
           )
         })}

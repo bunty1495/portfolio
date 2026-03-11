@@ -6,6 +6,7 @@ import Experience from './components/Experience'
 import Skills from './components/Skills'
 import Education from './components/Education'
 import Contact from './components/Contact'
+import RevealOnScroll from './components/RevealOnScroll'
 import './App.css'
 
 export default function App() {
@@ -19,12 +20,24 @@ export default function App() {
     <>
       <Navbar />
       <main>
-        <Hero />
-        <About />
-        <Experience activeSkill={activeSkill} />
-        <Skills activeSkill={activeSkill} onSkillClick={handleSkillClick} />
-        <Education />
-        <Contact />
+        <RevealOnScroll>
+          <Hero />
+        </RevealOnScroll>
+        <RevealOnScroll delay={0.05}>
+          <About />
+        </RevealOnScroll>
+        <RevealOnScroll delay={0.1}>
+          <Experience activeSkill={activeSkill} />
+        </RevealOnScroll>
+        <RevealOnScroll delay={0.05}>
+          <Skills activeSkill={activeSkill} onSkillClick={handleSkillClick} />
+        </RevealOnScroll>
+        <RevealOnScroll delay={0.05}>
+          <Education />
+        </RevealOnScroll>
+        <RevealOnScroll delay={0.05}>
+          <Contact />
+        </RevealOnScroll>
       </main>
       <footer className="footer">
         <p>© 2025 Kumar Abhishek · Built with React</p>

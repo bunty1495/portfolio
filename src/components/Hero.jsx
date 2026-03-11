@@ -34,7 +34,7 @@ export default function Hero() {
         </div>
         <div className="hero-photo-wrap">
           <div className="hero-photo-ring">
-            <img src="/portfolio/profile.jpg" alt="Kumar Abhishek" className="hero-photo" />
+            <img src="/portfolio/profile.jpg" alt="Kumar Abhishek" className="hero-photo" fetchpriority="high" />
           </div>
         </div>
       </div>

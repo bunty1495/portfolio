@@ -1,108 +1,85 @@
-.timeline {
-  position: relative;
+/* ── Bento grid: 3 columns ────────────────────────────────────────────── */
+.bento-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+
+/* ── Glassmorphism card ───────────────────────────────────────────────── */
+@keyframes card-pulse {
+  0%, 100% { box-shadow: var(--glass-shadow), 0 0 0 0 rgba(99, 102, 241, 0.4); }
+  50%       { box-shadow: var(--glass-shadow), 0 0 20px 6px rgba(99, 102, 241, 0.12); }
+}
+
+.bento-card {
+  background: var(--glass-bg);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--glass-shadow);
+  border-radius: 20px;
+  padding: 28px;
   display: flex;
   flex-direction: column;
-  gap: 0;
+  gap: 20px;
+  transition: border-color 0.25s, transform 0.2s, opacity 0.3s, filter 0.3s;
 }
 
-.timeline::before {
-  content: '';
-  position: absolute;
-  left: 15px;
-  top: 8px;
-  bottom: 8px;
-  width: 1px;
-  background: linear-gradient(180deg, var(--accent) 0%, var(--border) 100%);
+.bento-card:hover {
+  border-color: rgba(99, 102, 241, 0.35);
+  transform: translateY(-2px);
 }
 
-.timeline-item {
-  display: flex;
-  gap: 32px;
-  padding-bottom: 40px;
-  position: relative;
-}
-
-.timeline-dot {
-  width: 31px;
-  height: 31px;
-  min-width: 31px;
-  border-radius: 50%;
-  background: var(--bg);
-  border: 2px solid var(--accent);
-  margin-top: 4px;
-  position: relative;
-  z-index: 1;
-  box-shadow: 0 0 0 4px var(--accent-glow);
-}
-
-@keyframes card-pulse {
-  0%, 100% { box-shadow: 0 0 0 0 rgba(99, 102, 241, 0.4); }
-  50%       { box-shadow: 0 0 16px 6px rgba(99, 102, 241, 0.12); }
-}
-
-.job-card {
-  flex: 1;
-  background: var(--bg2);
-  border: 1px solid var(--border);
-  border-radius: 16px;
-  padding: 28px 32px;
-  transition: border-color 0.3s, transform 0.2s, opacity 0.3s, filter 0.3s;
-}
-
-.job-card:hover {
+/* Skill-filter states */
+.bento-card.highlighted {
   border-color: var(--accent);
-  transform: translateX(4px);
-}
-
-.job-card.highlighted {
-  border-color: var(--accent);
-  background: linear-gradient(135deg, var(--bg2) 80%, rgba(99, 102, 241, 0.06));
+  background: linear-gradient(135deg, var(--glass-bg) 70%, rgba(99, 102, 241, 0.08));
   animation: card-pulse 2s ease-in-out infinite;
-  transform: translateX(4px);
 }
 
-.job-card.dimmed {
-  opacity: 0.3;
-  filter: saturate(0.2);
+.bento-card.dimmed {
+  opacity: 0.28;
+  filter: saturate(0.15);
 }
 
-.timeline-dot.highlighted {
-  border-color: var(--accent2);
-  box-shadow: 0 0 0 6px rgba(99, 102, 241, 0.25);
-  background: var(--accent-glow);
-}
-
-.job-header {
+/* ── Card header ─────────────────────────────────────────────────────── */
+.bento-header {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  gap: 16px;
-  margin-bottom: 20px;
+  gap: 12px;
   flex-wrap: wrap;
 }
 
+.bento-company-block {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
 .job-company {
-  font-size: 20px;
+  font-size: 19px;
   font-weight: 700;
   color: var(--white);
-  margin-bottom: 4px;
 }
 
 .job-role {
-  font-size: 14px;
+  font-size: 13px;
   color: var(--accent2);
   font-weight: 500;
 }
 
-.job-meta {
+.bento-meta {
   display: flex;
   flex-direction: column;
   align-items: flex-end;
-  gap: 8px;
+  gap: 6px;
+  flex-shrink: 0;
 }
 
 .job-tag {
-  font-size: 11px;
+  font-family: var(--mono);
+  font-size: 10px;
   font-weight: 600;
   letter-spacing: 1.5px;
   text-transform: uppercase;
@@ -114,23 +91,26 @@
 }
 
 .job-period {
-  font-size: 13px;
+  font-family: var(--mono);
+  font-size: 11px;
   color: var(--text3);
   white-space: nowrap;
 }
 
+/* ── Bullet highlights ───────────────────────────────────────────────── */
 .job-highlights {
   list-style: none;
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 9px;
+  flex: 1;
 }
 
 .job-highlights li {
-  font-size: 15px;
+  font-size: 14px;
   color: var(--text2);
   line-height: 1.65;
-  padding-left: 20px;
+  padding-left: 18px;
   position: relative;
 }
 
@@ -139,18 +119,20 @@
   position: absolute;
   left: 0;
   color: var(--accent);
-  font-size: 12px;
-  top: 2px;
+  font-size: 11px;
+  top: 3px;
 }
 
+/* ── View Logic button ───────────────────────────────────────────────── */
 .view-logic-btn {
-  margin-top: 20px;
+  align-self: flex-start;
+  margin-top: auto;
   background: none;
-  border: 1px solid rgba(99, 102, 241, 0.4);
+  border: 1px solid rgba(99, 102, 241, 0.35);
   color: var(--accent2);
   font-size: 12px;
   font-weight: 600;
-  font-family: inherit;
+  font-family: var(--mono);
   letter-spacing: 0.5px;
   padding: 6px 14px;
   border-radius: 6px;
@@ -164,23 +146,37 @@
   color: var(--white);
 }
 
-@media (max-width: 640px) {
-  .timeline::before {
-    display: none;
+/* ── Responsive ──────────────────────────────────────────────────────── */
+@media (max-width: 900px) {
+  .bento-grid {
+    grid-template-columns: repeat(2, 1fr);
   }
-  .timeline-dot {
-    display: none;
+
+  /* On 2-col grid, span-2 cards fill the row; span-1 stack normally */
+  .bento-card[style*="span 2"] {
+    grid-column: span 2;
   }
-  .timeline-item {
-    gap: 0;
+}
+
+@media (max-width: 600px) {
+  .bento-grid {
+    grid-template-columns: 1fr;
   }
-  .job-card {
-    padding: 20px;
+
+  .bento-card[style*="span 2"],
+  .bento-card[style*="span 1"] {
+    grid-column: span 1;
   }
-  .job-header {
+
+  .bento-header {
     flex-direction: column;
   }
-  .job-meta {
+
+  .bento-meta {
     align-items: flex-start;
+  }
+
+  .bento-card {
+    padding: 20px;
   }
 }

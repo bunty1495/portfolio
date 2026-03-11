@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import Drawer from './Drawer'
 import { caseStudies } from '../data/caseStudies'
 import './Modal.css'
 
@@ -72,33 +72,15 @@ export default function Modal({ studyId, onClose }) {
   const study = caseStudies[studyId]
   const Diagram = diagrams[studyId]
 
-  useEffect(() => {
-    const onKey = (e) => { if (e.key === 'Escape') onClose() }
-    document.addEventListener('keydown', onKey)
-    document.body.style.overflow = 'hidden'
-    return () => {
-      document.removeEventListener('keydown', onKey)
-      document.body.style.overflow = ''
-    }
-  }, [onClose])
-
-  if (!study) return null
-
   return (
-    <div className="modal-overlay" onClick={onClose} role="dialog" aria-modal="true" aria-label={study.title}>
-      <div className="modal-box" onClick={e => e.stopPropagation()}>
-
-        {/* Header */}
-        <div className="modal-header">
-          <div>
-            <h2 className="modal-title">{study.title}</h2>
-            <p className="modal-subtitle">{study.subtitle}</p>
-          </div>
-          <button className="modal-close" onClick={onClose} aria-label="Close modal">×</button>
-        </div>
-
-        <div className="modal-body">
-
+    <Drawer
+      isOpen={!!study}
+      onClose={onClose}
+      title={study?.title}
+      subtitle={study?.subtitle}
+    >
+      {study && (
+        <>
           {/* Section 1: Challenge */}
           <div className="case-section">
             <div className="case-section-label">
@@ -135,9 +117,8 @@ export default function Modal({ studyId, onClose }) {
             </div>
             <p className="case-text">{study.result.summary}</p>
           </div>
-
-        </div>
-      </div>
-    </div>
+        </>
+      )}
+    </Drawer>
   )
 }
