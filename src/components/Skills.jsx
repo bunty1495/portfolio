@@ -33,12 +33,20 @@ const skillGroups = [
   },
 ]
 
-export default function Skills() {
+export default function Skills({ activeSkill, onSkillClick }) {
   return (
     <section id="skills" className="section">
       <p className="section-label">Skills</p>
       <h2 className="section-title">What I Work With</h2>
       <div className="section-divider" />
+      {activeSkill && (
+        <p className="skill-filter-hint">
+          Filtering experience by <strong>{activeSkill}</strong> —{' '}
+          <button className="skill-clear" onClick={() => onSkillClick(activeSkill)}>
+            Clear
+          </button>
+        </p>
+      )}
       <div className="skills-grid">
         {skillGroups.map(({ category, icon, skills }) => (
           <div key={category} className="skill-group">
@@ -48,7 +56,14 @@ export default function Skills() {
             </div>
             <div className="skill-tags">
               {skills.map(skill => (
-                <span key={skill} className="skill-tag">{skill}</span>
+                <button
+                  key={skill}
+                  className={`skill-tag${activeSkill === skill ? ' selected' : ''}`}
+                  onClick={() => onSkillClick(skill)}
+                  aria-pressed={activeSkill === skill}
+                >
+                  {skill}
+                </button>
               ))}
             </div>
           </div>

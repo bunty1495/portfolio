@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import Navbar from './components/Navbar'
 import Hero from './components/Hero'
 import About from './components/About'
@@ -8,14 +9,20 @@ import Contact from './components/Contact'
 import './App.css'
 
 export default function App() {
+  const [activeSkill, setActiveSkill] = useState(null)
+
+  const handleSkillClick = (skill) => {
+    setActiveSkill(prev => prev === skill ? null : skill)
+  }
+
   return (
     <>
       <Navbar />
       <main>
         <Hero />
         <About />
-        <Experience />
-        <Skills />
+        <Experience activeSkill={activeSkill} />
+        <Skills activeSkill={activeSkill} onSkillClick={handleSkillClick} />
         <Education />
         <Contact />
       </main>

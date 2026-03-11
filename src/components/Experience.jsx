@@ -1,3 +1,5 @@
+import { useState } from 'react'
+import Modal from './Modal'
 import './Experience.css'
 
 const jobs = [
@@ -6,6 +8,8 @@ const jobs = [
     role: 'Vice President, Controllers',
     period: 'May 2024 – Present',
     tag: 'Fintech',
+    skills: ['Java', 'Python', 'SQL', 'Microservices', 'Distributed Systems', 'REST APIs',
+             'Fintech', 'Regulatory Reporting', 'CI/CD', 'Monitoring & Alerting', 'Data Pipelines'],
     highlights: [
       'Lead engineer in Reporting — providing solutions to enhance efficiency across controller functions',
       'Automated generation of regulatory financial reports, eliminating manual effort and reducing error risk',
@@ -16,6 +20,9 @@ const jobs = [
     role: 'Software Developer, E-Commerce & Ads',
     period: 'Jan 2023 – Apr 2024',
     tag: 'E-Commerce',
+    skills: ['Java', 'Python', 'TypeScript', 'SQL', 'React', 'Microservices', 'Distributed Systems',
+             'RPC', 'REST APIs', 'Apache Hive', 'PostgreSQL', 'ML/Ads Systems', 'CVR Modeling',
+             'Data Pipelines', 'E-Commerce', 'Ads Technology', 'Monitoring & Alerting', 'Scalable Architecture'],
     highlights: [
       'Led brand seller onboarding project with scalable, extensible backend integrating Hive, SQL, and RPC data sources',
       'Major contributor to new ML-based search algorithm — significantly enhanced accuracy and reduced zero-result searches',
@@ -31,6 +38,10 @@ const jobs = [
     role: 'Software Developer, Microsoft 365',
     period: 'Nov 2017 – Jul 2021',
     tag: 'Enterprise',
+    caseStudyId: 'ms-migration',
+    skills: ['Java', 'JavaScript', 'TypeScript', 'React', 'Microservices', 'Distributed Systems',
+             'REST APIs', 'JMS', 'Enterprise SaaS', 'CI/CD', 'Monitoring & Alerting',
+             'Scalable Architecture', 'Cloud Infrastructure'],
     highlights: [
       'Built microservices for seamless M365 + Yammer platform integration',
       'Developed distributed synchronization system for group members across Yammer and M365',
@@ -45,6 +56,7 @@ const jobs = [
     role: 'Software Developer, GIF',
     period: 'Aug 2016 – Oct 2017',
     tag: 'Retail',
+    skills: ['Java', 'Distributed Systems', 'JMS', 'REST APIs', 'Scalable Architecture', 'Microservices', 'SQL'],
     highlights: [
       'Contributed to Global Integrated Fulfillment (GIF) — distributed, scalable order lifecycle management across Walmart stores',
       'Implemented JMS-based utility for event-driven services with automatic reprocessing of failed events',
@@ -52,36 +64,54 @@ const jobs = [
   },
 ]
 
-export default function Experience() {
+export default function Experience({ activeSkill }) {
+  const [activeStudy, setActiveStudy] = useState(null)
+
   return (
     <section id="experience" className="section">
       <p className="section-label">Experience</p>
       <h2 className="section-title">Where I've Worked</h2>
       <div className="section-divider" />
       <div className="timeline">
-        {jobs.map((job, i) => (
-          <div key={i} className="timeline-item">
-            <div className="timeline-dot" />
-            <div className="job-card">
-              <div className="job-header">
-                <div>
-                  <h3 className="job-company">{job.company}</h3>
-                  <p className="job-role">{job.role}</p>
+        {jobs.map((job, i) => {
+          const isHighlighted = activeSkill && job.skills.includes(activeSkill)
+          const isDimmed = activeSkill && !job.skills.includes(activeSkill)
+          return (
+            <div key={i} className="timeline-item">
+              <div className={`timeline-dot${isHighlighted ? ' highlighted' : ''}`} />
+              <div className={`job-card${isHighlighted ? ' highlighted' : ''}${isDimmed ? ' dimmed' : ''}`}>
+                <div className="job-header">
+                  <div>
+                    <h3 className="job-company">{job.company}</h3>
+                    <p className="job-role">{job.role}</p>
+                  </div>
+                  <div className="job-meta">
+                    <span className="job-tag">{job.tag}</span>
+                    <span className="job-period">{job.period}</span>
+                  </div>
                 </div>
-                <div className="job-meta">
-                  <span className="job-tag">{job.tag}</span>
-                  <span className="job-period">{job.period}</span>
-                </div>
+                <ul className="job-highlights">
+                  {job.highlights.map((h, j) => (
+                    <li key={j}>{h}</li>
+                  ))}
+                </ul>
+                {job.caseStudyId && (
+                  <button
+                    className="view-logic-btn"
+                    onClick={() => setActiveStudy(job.caseStudyId)}
+                  >
+                    View Logic ↗
+                  </button>
+                )}
               </div>
-              <ul className="job-highlights">
-                {job.highlights.map((h, j) => (
-                  <li key={j}>{h}</li>
-                ))}
-              </ul>
             </div>
-          </div>
-        ))}
+          )
+        })}
       </div>
+
+      {activeStudy && (
+        <Modal studyId={activeStudy} onClose={() => setActiveStudy(null)} />
+      )}
     </section>
   )
 }
